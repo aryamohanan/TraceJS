@@ -1,14 +1,12 @@
 'use strict';
 
 const requireHook = require('./requireHook.js');
-const got = require('got');
 
 const spans = [];
 const methods = ['get', 'post'];
 
 exports.init = function () {
-  console.log('-------------------------');
-  requireHook.setupModuleInterception('got', instrument);
+  requireHook.initHook('got', instrument);
 };
 
 function instrument(orgModule) {
@@ -23,7 +21,7 @@ function instrument(orgModule) {
             );
             const requestInfo = { url: arguments[0], method };
             spans.push(requestInfo);
-            console.log('collected trcae data', spans);
+            console.log('collected trace data', spans);
             return originalMethod.apply(this, arguments);
           };
         }
