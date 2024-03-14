@@ -1,5 +1,5 @@
+import got from 'got';
 import express from 'express';
-import { init, getCollectedRequests } from './instrumentation.js';
 const app = express();
 
 app.use(express.json());
@@ -9,17 +9,18 @@ app.get('/', (req, res) => {
   res.send('Hello World, I am ES module');
 });
 
-app.get('/status', (req, res) => {
+app.get('/status', async (req, res) => {
   console.log(`${req.method} ${req.url}`);
 
-  if (
-    typeof process.send === 'function' &&
-    typeof instrumentation.getCollectedRequests === 'function'
-  ) {
-    const collectedRequests = getCollectedRequests();
-    console.log(collectedRequests);
+  try {
+    const response = await got.get(
+      'https://example.com/?random=10000000000000000000000000000000'
+    );
+    res.send('Hello World, I am healthy');
+  } catch (error) {
+    console.error('Error retrieving collected requests:', error);
+    res.status(500).send('Internal Server Error');
   }
-  res.send('Hello World, I am healthy');
 });
 
 app.listen(3003, () => {
