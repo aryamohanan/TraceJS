@@ -1,24 +1,14 @@
 'use strict';
 
-const simpleRequireHook = require('./simpleRequireHook.js');
+const requireHook = require('./requireHook.js');
 const got = require('got');
 
 const spans = [];
-const dummydata = [
-  {
-    url: 'https://example.com/?random=1',
-    method: 'get',
-  },
-  {
-    url: 'https://example.com/?random=2',
-    method: 'post',
-  },
-];
 const methods = ['get', 'post'];
 
 exports.init = function () {
   console.log('-------------------------');
-  simpleRequireHook.interceptRequire('got', instrument);
+  requireHook.setupModuleInterception('got', instrument);
 };
 
 function instrument(orgModule) {
@@ -29,12 +19,11 @@ function instrument(orgModule) {
           const originalMethod = orgModule[method];
           orgModule[method] = function () {
             console.log(
-              `Instrumenting got ${method} ${JSON.stringify(
-                arguments
-              )} method`
+              `Instrumenting got ${method} ${JSON.stringify(arguments)} method`
             );
             const requestInfo = { url: arguments[0], method };
             spans.push(requestInfo);
+            console.log('collected trcae data', spans);
             return originalMethod.apply(this, arguments);
           };
         }
@@ -46,10 +35,3 @@ function instrument(orgModule) {
 
   return orgModule;
 }
-
-exports.getCollectedRequests = function () {
-  if (spans.length === 0) {
-    spans.push(dummydata);
-  }
-  return spans;
-};
