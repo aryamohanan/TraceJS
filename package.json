@@ -1,0 +1,15 @@
+{
+  "name": "esm-loader",
+  "version": "1.0.0",
+  "description": "This app is a test application for instana esm test",
+  "main": "app.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "arya mohanan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.3",
+    "got": "^11.8.6"
+  }
+}

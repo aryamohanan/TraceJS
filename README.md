@@ -1,0 +1,1 @@
+node --inspect-brk=0.0.0.0:9229  --loader ./esm-loader.mjs app.mjs
