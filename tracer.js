@@ -6,8 +6,7 @@ const spans = [];
 const methods = ['get', 'post'];
 const Span = {
   module: '',
-  data: {
-  },
+  data: {},
   error: null,
   date: null,
 };
