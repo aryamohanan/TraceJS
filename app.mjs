@@ -1,4 +1,4 @@
-import superagent from 'superagent';
+import got from 'got';
 import express from 'express';
 const app = express();
 
@@ -13,7 +13,7 @@ app.get('/status', async (req, res) => {
   console.log(`${req.method} ${req.url}`);
 
   try {
-    const response = await superagent.get(
+    const response = await got.get(
       'https://example.com/?random=10000000000000000000000000000000'
     );
     res.send('Hello World, I am healthy');

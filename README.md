@@ -26,3 +26,5 @@ For Node.js version < 18.19 and below
 - Instrumentation work for all nodejs versions
 - off threading is no longer an issue
 - should fix https://github.com/nodejs/help/issues/4190
+- WE DO NOT WANT to tell the customer to load the tracer.
+
