@@ -9,4 +9,22 @@ Once initialized, the instrumentation module will automatically intercept and tr
 
 ## ESM support
 
-node --loader ./esm-loader.mjs app.mjs
+For Node.js version> = 18.19 and above
+
+`node --import ./esm-loader.mjs app.mjs`
+
+For Node.js version < 18.19 and below
+
+`node --loader ./esm-loader.mjs app.mjs`
+
+
+## Usecases to address 
+
+- Instrumentation should work for CJS libraries
+- Instrumentation should work for esm client apps with CJS libraries
+- Instrumentation should work for client apps with pure esm ibraries (example got)
+- Instrumentation work for all nodejs versions
+- off threading is no longer an issue
+- should fix https://github.com/nodejs/help/issues/4190
+- WE DO NOT WANT to tell the customer to load the tracer.
+
