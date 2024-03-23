@@ -1,12 +1,34 @@
 # Instrumentation for Node.js Libraries
 
-This instrumentation module enhances tracing in Node.js applications. It allows you to capture and log trace data for HTTP requests made using the 'got' module. This can be extend in the future.
+This apllication is a simulation of instrumentation of module tracing in Node.js applications. It allows us to capture and log trace data for  few modules. It enables us to capture instrumentations written in both commonjs and esm.
 
-
-## Usage
-
-Once initialized, the instrumentation module will automatically intercept and trace HTTP requests made using the 'got' module. Traced data will be collected and logged to the console.
 
 ## ESM support
 
-node --loader ./esm-loader.mjs app.mjs
+
+### How to rum
+
+For nodejs version greater than or equal to 18.19
+
+`node --import ./register.mjs app.mjs`
+
+For nodejs version less than 18.19
+
+`node --loader ./loader.mjs app.mjs`
+
+
+## Steps
+
+- Develop atest application that uses ESM modules to create a small web service that includes additional spans created via any of the instrumentations
+- Implement loading of our instrumentation modules via the import-in-the-middle 
+
+
+What worked
+
+- workeddd
+imported got and call hook directly with got 
+hook(['got'], instrument.instrument(got)); --hook.mjs
+
+node --inspect-brk=0.0.0.0:9229  --import ./hook.mjs app.mjs
+
+

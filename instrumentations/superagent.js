@@ -1,33 +1,15 @@
-const hook = require('import-in-the-middle');
+const { Span } = require('../tracer.js');
 
 const spans = [];
 const methods = ['get', 'post'];
-const supportedModules = ['superagent'];
-const Span = {
-  module: '',
-  data: {},
-  error: null,
-  date: null,
-};
 
-function init() {
-  hook(supportedModules, (moduleExports, name, basedir) => {
-    if (moduleExports && moduleExports.default) {
-      moduleExports.default = instrument(moduleExports.default, name);
-      return moduleExports;
-    } else {
-      return instrument(moduleExports, name);
-    }
-  });
-}
-
-function instrument(orgModule, moduleName) {
+function instrument(orgModule) {
   if (orgModule) {
     methods.forEach((method) => {
       if (typeof orgModule[method] === 'function') {
         const originalMethod = orgModule[method];
         orgModule[method] = function () {
-          Span.module = moduleName;
+          Span.module = 'superagent';
           Span.data = {
             url: arguments[0],
             method: method,
@@ -39,12 +21,12 @@ function instrument(orgModule, moduleName) {
           return request
             .then(() => {
               spans.push({ ...Span });
-              console.log('Collected trace data:', spans);
+              console.log('collected trace data', spans);
             })
             .catch((err) => {
               Span.error = err.toString();
               spans.push({ ...Span });
-              console.log('Error occurred, spans:', spans);
+              console.log('spans', spans);
             });
         };
       }
@@ -53,4 +35,4 @@ function instrument(orgModule, moduleName) {
 
   return orgModule;
 }
-module.exports = { init };
+module.exports = { instrument };
