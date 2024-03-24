@@ -4,7 +4,9 @@
   "description": "This app is a test application for instana esm test",
   "main": "app.mjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --import ./register.mjs app.mjs",
+    "start-v18": "node --loader ./loader.mjs app.mjs"
   },
   "author": "arya mohanan",
   "license": "ISC",
