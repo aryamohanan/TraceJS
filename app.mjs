@@ -1,6 +1,3 @@
-import hook from './tracer.js';
-
-hook.init();
 import got from 'got';
 import express from 'express';
 const app = express();

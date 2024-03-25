@@ -20,7 +20,7 @@ function init() {
       instrumentedModule.moduleName,
       instrumentedModule.hookFn
     );
-    iitmHook.init(instrumentedModule.moduleName);
+    iitmHook.init(instrumentedModule.moduleName,instrumentedModule.hookFn);
   }
 }
 
