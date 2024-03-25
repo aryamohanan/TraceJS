@@ -25,8 +25,3 @@ For nodejs version greater than or equal to 18.19
 For nodejs version less than 18.19
 
 `node --loader ./loader.mjs app.mjs`
-
-
-
-
-

@@ -1,5 +1,9 @@
-const { Span } = require('../tracer.js');
-
+const Span = {
+  module: '',
+  data: {},
+  error: null,
+  date: null,
+};
 const spans = [];
 const methods = ['get', 'post'];
 

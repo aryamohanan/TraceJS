@@ -23,11 +23,5 @@ function init() {
     iitmHook.init(instrumentedModule.moduleName);
   }
 }
-const Span = {
-  module: '',
-  data: {},
-  error: null,
-  date: null,
-};
 
-module.exports = { init, Span };
+module.exports = { init };
